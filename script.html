@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สคริปต์ควบคุมบิน | ไอซ์มินิ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        dark: '#1D2129',
+                        light: '#F7F8FA'
+                    },
+                    fontFamily: {
+                        sans: ['Kanit', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans text-dark p-4">
+    <div class="max-w-4xl mx-auto">
+        <header class="text-center mb-8">
+            <h1 class="text-[clamp(1.6rem,3vw,2.5rem)] font-bold text-primary mb-2 flex items-center justify-center gap-2">
+                <i class="fa fa-code"></i>
+                สคริปต์ควบคุมบิน
+            </h1>
+            <p class="text-gray-600">สร้างโดย ไอซ์มินิ กดปุ่มด้านล่างเพื่อคัดลอกสคริปต์ทั้งหมดไปใช้งานได้เลยครับ</p>
+        </header>
+
+        <div class="bg-white rounded-xl shadow-xl p-5 mb-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <h2 class="text-lg font-semibold">โค้ดสคริปต์</h2>
+                <button id="copyBtn" class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg flex items-center gap-2 transition-all shadow-md hover:shadow-lg">
+                    <i class="fa fa-copy"></i>
+                    <span id="copyText">กดเพื่อคัดลอกโค้ด</span>
+                </button>
+            </div>
+
+            <div class="relative">
+                <pre id="codeBox" class="bg-gray-900 text-gray-100 p-5 rounded-lg overflow-x-auto max-h-[70vh] overflow-y-auto text-sm leading-relaxed whitespace-pre-wrap break-all select-text">
+<code>local S,T="ควบคุมบิน BYไอซ์มินิ",{f=false,v=100,t=0.02,F=false,B=false,L=false,R=false,U=false,D=false}
+local g=Instance.new("ScreenGui")g.Parent=game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")g.IgnoreGuiInset=true
+
+local i=Instance.new("Frame")i.Size,i.BackgroundColor3,i.ZIndex,i.Parent=UDim2.new(1,0,1,0),Color3.new(0.1,0.1,0.1),100,g
+local it=Instance.new("TextLabel")it.Size,it.Text,it.TextColor3,it.Font,it.TextSize,it.BackgroundTransparency,it.TextStrokeTransparency,it.ZIndex,it.Parent=UDim2.new(1,0,1,0),"✨ สร้างโดยไอซ์มินิ ✨",Color3.new(1,1,0.2),Enum.Font.GothamBold,50,1,0.3,101,i
+task.spawn(function()for d=1,50 do task.wait(0.05)end for d=0,1,0.02 do it.TextTransparency=d i.BackgroundTransparency=d task.wait(0.05)end i:Destroy()end)
+
+local f=Instance.new("Frame",g)f.Size,f.Position,f.BackgroundColor3,f.Active,f.Draggable=UDim2.new(0,160,0,200),UDim2.new(.72,0,.2,0),Color3.new(.12,.12,.15),true,true
+Instance.new("UICorner",f)
+local t=Instance.new("Frame",f)t.Size,t.BackgroundColor3=UDim2.new(1,0,0,30),Color3.new(.2,.5,1)
+Instance.new("UICorner",t)
+local tx=Instance.new("TextLabel",t)tx.Size,tx.Text,tx.BackgroundTransparency,tx.TextColor3=UDim2.new(1,-30,1,0),S,1,Color3.new(1,1,1)
+local b1=Instance.new("TextButton",t)b1.Size,b1.Position,b1.Text,b1.BackgroundColor3=UDim2.new(0,24,0,24),UDim2.new(1,-28,.5,-12),"−",Color3.new(1,1,1)
+Instance.new("UICorner",b1)
+
+local c1=Instance.new("Frame",f)c1.Size,c1.Position,c1.BackgroundTransparency=UDim2.new(1,0,1,-30),UDim2.new(0,0,0,30),1
+b1.MouseButton1Click:Connect(function()c1.Visible=not c1.Visible f.Size=c1.Visible and UDim2.new(0,160,0,200)or UDim2.new(0,160,0,30)b1.Text=c1.Visible and "−"or "+"end)
+
+local bf=Instance.new("TextButton",c1)bf.Size,bf.Position,bf.Text,bf.BackgroundColor3=UDim2.new(.9,0,0,30),UDim2.new(.05,0,.02,0),"เปิดโหมดบิน",Color3.new(.2,.7,.3)
+Instance.new("UICorner",bf)
+
+local st=Instance.new("TextLabel",c1)st.Size,st.Position,st.Text,st.BackgroundTransparency=UDim2.new(0,100,0,20),UDim2.new(.05,0,.22,0),"ใส่ความเร็ว:",1
+local tb=Instance.new("TextBox",c1)tb.Size,tb.Position,tb.Text,tb.BackgroundColor3,tb.TextColor3=UDim2.new(.55,0,0,25),UDim2.new(.05,0,.32,0),"100",Color3.new(1,1,1),Color3.new(0,0,0)
+Instance.new("UICorner",tb)
+tb.FocusLost:Connect(function()T.v=tonumber(tb.Text)or 100 end)
+
+local bup=Instance.new("TextButton",c1)bup.Size,bup.Position,bup.Text,bup.BackgroundColor3=UDim2.new(.18,0,0,25),UDim2.new(.62,0,.32,0),"+",Color3.new(.2,.7,.3)
+Instance.new("UICorner",bup)
+local bdn=Instance.new("TextButton",c1)bdn.Size,bdn.Position,bdn.Text,bdn.BackgroundColor3=UDim2.new(.18,0,0,25),UDim2.new(.80,0,.32,0),"-",Color3.new(.7,.2,.2)
+Instance.new("UICorner",bdn)
+
+local m={{n="หน้า",p=UDim2.new(.05,0,.52,0),k="F"},{n="หลัง",p=UDim2.new(.52,0,.52,0),k="B"},{n="ขึ้น",p=UDim2.new(.05,0,.74,0),k="U"},{n="ลง",p=UDim2.new(.52,0,.74,0),k="D"}}
+for _,v in pairs(m)do
+    local b=Instance.new("TextButton",c1)
+    b.Size,b.Position,b.Text,b.BackgroundColor3=UDim2.new(.43,0,0,30),v.p,v.n,Color3.new(.3,.7,.9)
+    Instance.new("UICorner",b)
+    b.MouseButton1Down:Connect(function()T[v.k]=true end)
+    b.MouseButton1Up:Connect(function()T[v.k]=false end)
+    b.MouseLeave:Connect(function()T[v.k]=false end)
+end
+
+local f2=Instance.new("Frame",g)f2.Size,f2.Position,f2.BackgroundColor3,f2.Active,f2.Draggable=UDim2.new(0,120,0,180),UDim2.new(.02,0,.25,0),Color3.new(.12,.12,.15),true,true
+Instance.new("UICorner",f2)
+local t2=Instance.new("Frame",f2)t2.Size,t2.BackgroundColor3=UDim2.new(1,0,0,30),Color3.new(.2,.5,1)
+Instance.new("UICorner",t2)
+local tx2=Instance.new("TextLabel",t2)tx2.Size,tx2.Text,tx2.BackgroundTransparency,tx2.TextColor3=UDim2.new(1,-30,1,0),"เลี้ยว",1,Color3.new(1,1,1)
+local b2=Instance.new("TextButton",t2)b2.Size,b2.Position,b2.Text,b2.BackgroundColor3=UDim2.new(0,24,0,24),UDim2.new(1,-28,.5,-12),"−",Color3.new(1,1,1)
+Instance.new("UICorner",b2)
+
+local c2=Instance.new("Frame",f2)c2.Size,c2.Position,c2.BackgroundTransparency=UDim2.new(1,0,1,-30),UDim2.new(0,0,0,30),1
+b2.MouseButton1Click:Connect(function()c2.Visible=not c2.Visible f2.Size=c2.Visible and UDim2.new(0,120,0,180)or UDim2.new(0,120,0,30)b2.Text=c2.Visible and "−"or "+"end)
+
+local tr={{n="ซ้าย",p=UDim2.new(.05,0,.02,0),k="L"},{n="ขวา",p=UDim2.new(.52,0,.02,0),k="R"}}
+for _,v in pairs(tr)do
+    local b=Instance.new("TextButton",c2)
+    b.Size,b.Position,b.Text,b.BackgroundColor3=UDim2.new(.43,0,0,30),v.p,v.n,Color3.new(.9,.4,.1)
+    Instance.new("UICorner",b)
+    b.MouseButton1Down:Connect(function()T[v.k]=true end)
+    b.MouseButton1Up:Connect(function()T[v.k]=false end)
+    b.MouseLeave:Connect(function()T[v.k]=false end)
+end
+
+local st2=Instance.new("TextLabel",c2)st2.Size,st2.Position,st2.Text,st2.BackgroundTransparency=UDim2.new(0,100,0,20),UDim2.new(.05,0,.37,0),"ความเร็วเลี้ยว:",1
+local ts=Instance.new("TextBox",c2)ts.Size,ts.Position,ts.Text,ts.BackgroundColor3,ts.TextColor3=UDim2.new(.55,0,0,25),UDim2.new(.05,0,.49,0),"0.02",Color3.new(1,1,1),Color3.new(0,0,0)
+Instance.new("UICorner",ts)
+ts.FocusLost:Connect(function()T.t=tonumber(ts.Text)or 0.02 end)
+
+local tup=Instance.new("TextButton",c2)tup.Size,tup.Position,tup.Text,tup.BackgroundColor3=UDim2.new(.18,0,0,25),UDim2.new(.62,0,.49,0),"+",Color3.new(.9,.4,.1)
+Instance.new("UICorner",tup)
+local tdn=Instance.new("TextButton",c2)tdn.Size,tdn.Position,tdn.Text,tdn.BackgroundColor3=UDim2.new(.18,0,0,25),UDim2.new(.80,0,.49,0),"-",Color3.new(.9,.4,.1)
+Instance.new("UICorner",tdn)
+
+local function gmc()
+    local c=game.Players.LocalPlayer.Character if not c then return end
+    local h=c:FindFirstChildOfClass("Humanoid")if not h or not h.SeatPart then return end
+    return h.SeatPart.Parent:FindFirstChild("Body")or h.SeatPart.Parent.PrimaryPart or h.SeatPart.Parent:FindFirstChildWhichIsA("BasePart")
+end
+
+bup.MouseButton1Click:Connect(function()T.v=math.clamp(T.v+10,1,2000)tb.Text=tostring(T.v)end)
+bdn.MouseButton1Click:Connect(function()T.v=math.clamp(T.v-10,1,2000)tb.Text=tostring(T.v)end)
+tup.MouseButton1Click:Connect(function()T.t=math.clamp(T.t+0.005,0.001,1)ts.Text=tostring(T.t)end)
+tdn.MouseButton1Click:Connect(function()T.t=math.clamp(T.t-0.005,0.001,1)ts.Text=tostring(T.t)end)
+
+bf.MouseButton1Click:Connect(function()
+    T.f=not T.f
+    T.F,T.B,T.L,T.R,T.U,T.D=false,false,false,false,false,false
+    if T.f then
+        local p=gmc()
+        if p then
+            workspace.Gravity=0
+            p.CustomPhysicalProperties=PhysicalProperties.new(0,0,0,0,0)
+            bf.Text="ปิดโหมดบิน"
+            bf.BackgroundColor3=Color3.new(.7,.2,.2)
+        end
+    else
+        local p=gmc()
+        if p then
+            p.CustomPhysicalProperties=nil
+        end
+        workspace.Gravity=196
+        bf.Text="เปิดโหมดบิน"
+        bf.BackgroundColor3=Color3.new(.2,.7,.3)
+    end
+end)
+
+local currentAngle = 0
+local Camera = workspace.CurrentCamera
+game:GetService("RunService").RenderStepped:Connect(function()
+    if not T.f then return end
+    local car = gmc()
+    if not car then return end
+
+    if T.L then
+        currentAngle = currentAngle + T.t
+    end
+    if T.R then
+        currentAngle = currentAngle - T.t
+    end
+
+    car.CFrame = CFrame.new(car.Position) * CFrame.Angles(0, math.rad(currentAngle), 0)
+
+    local camCF = Camera.CFrame
+    local camDir = camCF.LookVector
+    camDir = Vector3.new(camDir.X, 0, camDir.Z).Unit
+    local moveDir = Vector3.new()
+
+    if T.F then
+        moveDir = moveDir + camDir
+    end
+    if T.B then
+        moveDir = moveDir - camDir
+    end
+    if T.U then
+        moveDir = moveDir
+        
