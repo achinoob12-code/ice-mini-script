@@ -142,41 +142,43 @@ bf.MouseButton1Click:Connect(function()
     else
         local p=gmc()
         if p then
-            p.CustomPhysicalProperties=nil
+            workspace.Gravity=196.2
+            p.CustomPhysicalProperties=PhysicalProperties.new(0.7,100,0.5,1,1)
+            bf.Text="เปิดโหมดบิน"
+            bf.BackgroundColor3=Color3.new(.2,.7,.3)
         end
-        workspace.Gravity=196
-        bf.Text="เปิดโหมดบิน"
-        bf.BackgroundColor3=Color3.new(.2,.7,.3)
     end
 end)
 
-local currentAngle = 0
-local Camera = workspace.CurrentCamera
 game:GetService("RunService").RenderStepped:Connect(function()
     if not T.f then return end
-    local car = gmc()
-    if not car then return end
-
-    if T.L then
-        currentAngle = currentAngle + T.t
+    local p=gmc()if not p then return end
+    local cf=p.CFrame
+    local mv=Vector3.new(
+        (T.L and -1 or 0)+(T.R and 1 or 0),
+        (T.U and 1 or 0)+(T.D and -1 or 0),
+        (T.F and -1 or 0)+(T.B and 1 or 0)
+    )
+    if mv.Magnitude>0 then
+        mv=mv.Unit*T.v
+        local rot=CFrame.Angles(0,math.rad((T.L and 1 or 0)+(T.R and -1 or 0))*90*T.t,0)
+        p.Velocity=cf:VectorToWorldSpace(mv)
+        p.CFrame=cf*rot
+    else
+        p.Velocity=Vector3.new(0,0,0)
     end
-    if T.R then
-        currentAngle = currentAngle - T.t
-    end
+end)
+</code>
+                </pre>
+            </div>
+        </div>
+    </div>
 
-    car.CFrame = CFrame.new(car.Position) * CFrame.Angles(0, math.rad(currentAngle), 0)
+    <script>
+        const copyBtn = document.getElementById('copyBtn');
+        const copyText = document.getElementById('copyText');
+        const codeBox = document.getElementById('codeBox');
 
-    local camCF = Camera.CFrame
-    local camDir = camCF.LookVector
-    camDir = Vector3.new(camDir.X, 0, camDir.Z).Unit
-    local moveDir = Vector3.new()
-
-    if T.F then
-        moveDir = moveDir + camDir
-    end
-    if T.B then
-        moveDir = moveDir - camDir
-    end
-    if T.U then
-        moveDir = moveDir
-        
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = codeBox.textContent.trim();
+            
